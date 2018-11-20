@@ -1,0 +1,46 @@
+.Content {
+	box-sizing: border-box;
+	padding: 26px 20px;
+	padding-top: 80px;
+	width: 100%;
+	background: transparent;
+}
+
+.Label {
+	padding-top: 30px;
+	padding-bottom: 5px;
+}
+
+.Button {
+	max-width: 200px;
+	margin: 15px 0;	
+	background-color: green;
+	color: #fff;
+	border: 1px solid #699f30;
+	background-color: #83ca38;
+	height: 47px;
+	border-radius: 6px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	cursor: pointer;
+	user-select: none;
+}
+
+
+.RemoveButton {
+	max-width: 200px;
+	margin: 15px 0;	
+	background-color: green;
+	color: #fff;
+	background-color: #f77373;
+	height: 47px;
+	border-radius: 6px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	cursor: pointer;
+	user-select: none;
+}
