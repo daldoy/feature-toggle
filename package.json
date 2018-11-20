@@ -1,0 +1,28 @@
+{
+	"name": "featuretogglechallenge",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon server.js"
+	},
+	"author": "Pau",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^3.0.2",
+		"body-parser": "^1.18.3",
+		"express": "^4.16.4",
+		"jsonwebtoken": "^8.4.0",
+		"mongoose": "^5.3.12",
+		"morgan": "^1.9.1",
+		"nodemon": "^1.18.6"
+	},
+	"devDependencies": {
+		"eslint": "^5.9.0",
+		"babel-eslint": "^10.0.1",
+		"eslint-config-prettier": "^3.3.0",
+		"eslint-plugin-prettier": "^3.0.0",
+		"prettier": "^1.15.2"
+	}
+}
