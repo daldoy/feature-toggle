@@ -3,7 +3,8 @@
 	padding: 26px 20px;
 	padding-top: 80px;
 	width: 100%;
-	background: transparent;
+	max-width: 960px;
+	margin: 0 auto;
 }
 
 .Label {

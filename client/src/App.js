@@ -41,7 +41,7 @@ class App extends Component {
 					<Redirect path="/" exact to="/home" />
 					<Redirect path="/join" exact to="/home" />
 					<Redirect path="/login" exact to="/home" />
-					<Route path="*" component={NotFound} />
+					{!this.props.loadingProfile && <Route path="*" component={NotFound} />}
 				</Switch>
 			);
 		}
@@ -60,6 +60,7 @@ const mapStateToProps = state => ({
 	token: state.auth.token,
 	loading: state.auth.loading,
 	isAdmin: state.profile.isAdmin,
+	loadingProfile: state.profile.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -3,7 +3,8 @@
 	padding: 26px 20px;
 	padding-top: 80px;
 	width: 100%;
-	background: transparent;
+	max-width: 960px;
+	margin: 0 auto;
 }
 
 .Label {
@@ -28,12 +29,12 @@
 	user-select: none;
 }
 
-
 .RemoveButton {
 	max-width: 200px;
 	margin: 15px 0;	
 	background-color: green;
 	color: #fff;
+	border: 1px solid #cc3333;
 	background-color: #f77373;
 	height: 47px;
 	border-radius: 6px;

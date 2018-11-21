@@ -51,8 +51,8 @@ export const authLogin = (email, password) => {
 
 		const url =
 			window.location.href.indexOf('heroku') !== -1
-				? 'https://name.herokuapp.com/'
-				: 'http://127.0.0.1:8000/';
+				? 'https://feature-toggle.herokuapp.com/'
+				: 'http://localhost:8000/';
 
 		axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 		axios.defaults.xsrfCookieName = 'csrftoken';
@@ -88,7 +88,7 @@ export const authSignup = (email, password) => {
 
 		const url =
 			window.location.href.indexOf('heroku') !== -1
-				? 'https://name.herokuapp.com/'
+				? 'https://feature-toggle.herokuapp.com/'
 				: 'http://localhost:8000/';
 
 		axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';

@@ -4,13 +4,7 @@ import { connect } from 'react-redux';
 import styles from './Home.module.css';
 import Header from '../../components/Header/Header';
 
-import * as profileActions from '../../store/actions/profile';
-
 export class Home extends Component {
-	componentDidMount() {
-		this.props.updateProfile();
-	}
-
 	render() {
 		if (this.props.loading) {
 			return (
@@ -45,13 +39,4 @@ const mapStateToProps = state => {
 	};
 };
 
-const mapDispatchToProps = dispatch => {
-	return {
-		updateProfile: () => dispatch(profileActions.profileLoad()),
-	};
-};
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(Home);
+export default connect(mapStateToProps)(Home);

@@ -6,6 +6,8 @@ import styles from './UpdateFeature.module.css';
 import Header from '../../components/Header/Header';
 import SpinnerModal from '../../components/SpinnerModal/SpinnerModal';
 
+import * as profileActions from '../../store/actions/profile';
+
 export class UpdateFeature extends Component {
 	state = {
 		name: '',
@@ -19,7 +21,10 @@ export class UpdateFeature extends Component {
 	}
 
 	getAllFeatures = () => {
-		const url = 'http://127.0.0.1:8000/';
+		const url =
+			window.location.href.indexOf('heroku') !== -1
+				? 'https://feature-toggle.herokuapp.com/'
+				: 'http://localhost:8000/';
 
 		axios
 			.get(url + 'features-api/get-all-features/', {
@@ -48,7 +53,10 @@ export class UpdateFeature extends Component {
 
 	updateFeature = () => {
 		this.setState({ spinnerModal: true });
-		const url = 'http://127.0.0.1:8000/';
+		const url =
+			window.location.href.indexOf('heroku') !== -1
+				? 'https://feature-toggle.herokuapp.com/'
+				: 'http://localhost:8000/';
 
 		axios
 			.patch(
@@ -65,6 +73,7 @@ export class UpdateFeature extends Component {
 				console.log('res');
 				console.log(res);
 				this.setState({ spinnerModal: false });
+				this.props.updateProfile();
 			})
 			.catch(err => {
 				console.log('err');
@@ -74,7 +83,10 @@ export class UpdateFeature extends Component {
 
 	deleteFeature = () => {
 		this.setState({ spinnerModal: true });
-		const url = 'http://127.0.0.1:8000/';
+		const url =
+			window.location.href.indexOf('heroku') !== -1
+				? 'https://feature-toggle.herokuapp.com/'
+				: 'http://localhost:8000/';
 		axios
 			.delete(url + 'features-api/delete-feature/', {
 				data: { id: this.props.match.params.id },
@@ -83,6 +95,7 @@ export class UpdateFeature extends Component {
 			.then(res => {
 				this.setState({ spinnerModal: false });
 				this.props.history.push('/admin');
+				this.props.updateProfile();
 			})
 			.catch(err => {
 				console.log('err');
@@ -132,4 +145,13 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps)(UpdateFeature);
+const mapDispatchToProps = dispatch => {
+	return {
+		updateProfile: () => dispatch(profileActions.updateProfile()),
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(UpdateFeature);

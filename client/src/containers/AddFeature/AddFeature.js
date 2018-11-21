@@ -7,6 +7,8 @@ import Header from '../../components/Header/Header';
 
 import SpinnerModal from '../../components/SpinnerModal/SpinnerModal';
 
+import * as profileActions from '../../store/actions/profile';
+
 export class AddFeature extends Component {
 	state = {
 		name: '',
@@ -23,7 +25,10 @@ export class AddFeature extends Component {
 		if (this.state.name === '') return;
 
 		this.setState({ spinnerModal: true });
-		const url = 'http://127.0.0.1:8000/';
+		const url =
+			window.location.href.indexOf('heroku') !== -1
+				? 'https://feature-toggle.herokuapp.com/'
+				: 'http://localhost:8000/';
 
 		axios
 			.post(
@@ -37,6 +42,7 @@ export class AddFeature extends Component {
 			)
 			.then(res => {
 				this.setState({ spinnerModal: false });
+				this.props.updateProfile();
 				this.props.history.push('/admin');
 			})
 			.catch(err => {
@@ -84,4 +90,13 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps)(AddFeature);
+const mapDispatchToProps = dispatch => {
+	return {
+		updateProfile: () => dispatch(profileActions.updateProfile()),
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(AddFeature);

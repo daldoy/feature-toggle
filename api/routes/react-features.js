@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const checkAuth = require('../middleware/check-auth');
 
-const ReactFeature = require('../models/react-feature').model;
+const ReactFeature = require('../models/react-feature');
 const User = require('../models/user');
 
 router.post('/add-feature/', checkAuth, (req, res, next) => {

@@ -7,6 +7,10 @@ const mongoose = require('mongoose');
 const userRoutes = require('./api/routes/user');
 const reactFeatureRoutes = require('./api/routes/react-features');
 
+const path = require('path');
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 mongoose.set('useCreateIndex', true);
 mongoose.connect(
 	'mongodb+srv://admin:' +
@@ -39,12 +43,6 @@ app.use((req, res, next) => {
 app.use('/rest-auth', userRoutes);
 app.use('/features-api', reactFeatureRoutes);
 
-app.use((req, res, next) => {
-	const error = new Error('Not found');
-	error.status = 404;
-	next(error);
-});
-
 app.use((error, req, res, next) => {
 	res.status(error.status || 500);
 	res.json({
@@ -52,6 +50,10 @@ app.use((error, req, res, next) => {
 			message: error.message,
 		},
 	});
+});
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 module.exports = app;

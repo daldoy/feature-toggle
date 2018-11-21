@@ -20,7 +20,10 @@ export class Admin extends Component {
 	}
 
 	getAllFeatures = () => {
-		const url = 'http://127.0.0.1:8000/';
+		const url =
+			window.location.href.indexOf('heroku') !== -1
+				? 'https://feature-toggle.herokuapp.com/'
+				: 'http://localhost:8000/';
 
 		axios
 			.get(url + 'features-api/get-all-features/', {
