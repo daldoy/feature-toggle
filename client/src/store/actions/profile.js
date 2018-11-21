@@ -43,8 +43,7 @@ export const profileLoad = token => {
 				headers: { Authorization: 'Bearer ' + token },
 			})
 			.then(res => {
-				// let isAdmin = false; // TODO CHANGE
-				let isAdmin = true;
+				let isAdmin = false;
 				let features = '[]';
 				if (res.data && res.data.length > 0) {
 					if (res.data.includes('admin')) {
@@ -81,8 +80,7 @@ export const updateProfile = token => {
 				headers: { Authorization: 'Bearer ' + token },
 			})
 			.then(res => {
-				// let isAdmin = false; // TODO CHANGE
-				let isAdmin = true;
+				let isAdmin = false;
 				let features = '[]';
 				if (res.data && res.data.length > 0) {
 					if (res.data.includes('admin')) {

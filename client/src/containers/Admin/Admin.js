@@ -53,7 +53,7 @@ export class Admin extends Component {
 					<div>Features</div>
 					<FeaturesTable featureClicked={this.openFeature} features={this.state.features} />
 					<div className={styles.Button} onClick={this.addNewFeature}>
-						Add new feature
+						Create new feature
 					</div>
 				</div>
 			</React.Fragment>

@@ -24,6 +24,7 @@ router.post('/add-feature/', checkAuth, (req, res, next) => {
 					name: req.body.name,
 					isEnabled: enabled,
 					ratio: req.body.ratio,
+					specificEmails: req.body.specificEmails,
 				});
 				newFeature
 					.save()
@@ -37,13 +38,20 @@ router.post('/add-feature/', checkAuth, (req, res, next) => {
 								.then(usersQ => {
 									// shuffle the users to avoid that the first users always get the new features
 									const users = shuffle(usersQ);
-									const numUsers = Math.floor((req.body.ratio / 100) * users.length);
-									for (let i = 0; i < numUsers; i++) {
-										const user = users[i];
-										user.features.push(req.body.name);
-										// user.features.push(newFeature);
-										user.save();
+									let numUsers = Math.floor((req.body.ratio / 100) * users.length);
+									for (let user of users) {
+										numUsers--;
+										if (numUsers >= 0) {
+											user.features.push(req.body.name);
+											user.save();
+										} else {
+											if (req.body.specificEmails.includes(user.email)) {
+												user.features.push(req.body.name);
+												user.save();
+											}
+										}
 									}
+
 									res.status(201).json({
 										message: 'Feature created',
 									});
@@ -87,6 +95,16 @@ router.patch('/update-feature/', checkAuth, (req, res, next) => {
 				}
 				feature.isEnabled = enabled;
 				feature.ratio = req.body.ratio;
+				feature.specificEmails = req.body.specificEmails;
+
+				if (feature.name === 'admin') {
+					enabled = true;
+					feature.ratio = 0;
+					if (!feature.specificEmails.includes('admin@admin.com')) {
+						feature.specificEmails.push('admin@admin.com');
+					}
+				}
+
 				feature
 					.save()
 					.then(result => {
@@ -99,22 +117,26 @@ router.patch('/update-feature/', checkAuth, (req, res, next) => {
 								.then(usersQ => {
 									// shuffle the users to avoid that the first users always get the new features
 									const users = shuffle(usersQ);
-									const numUsers = Math.floor((req.body.ratio / 100) * users.length);
-									for (let i = 0; i < numUsers; i++) {
-										const user = users[i];
-										if (!user.features.includes(req.body.name)) {
-											user.features.push(req.body.name);
-											user.save();
+									let numUsers = Math.floor((req.body.ratio / 100) * users.length);
+									for (let user of users) {
+										numUsers--;
+										if (numUsers >= 0) {
+											if (!user.features.includes(req.body.name)) {
+												user.features.push(req.body.name);
+												user.save();
+											}
+										} else {
+											const idx = user.features.indexOf(req.body.name);
+											if (idx !== -1 && !req.body.specificEmails.includes(user.email)) {
+												user.features.splice(idx, 1);
+												user.save();
+											} else if (idx === -1 && req.body.specificEmails.includes(user.email)) {
+												user.features.push(req.body.name);
+												user.save();
+											}
 										}
 									}
-									for (let i = numUsers; i < users.length; i++) {
-										const user = users[i];
-										const idx = user.features.indexOf(req.body.name);
-										if (idx !== -1) {
-											user.features.splice(idx, 1);
-											user.save();
-										}
-									}
+
 									res.status(200).json({
 										message: 'Product updated',
 									});

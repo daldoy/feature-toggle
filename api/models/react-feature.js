@@ -5,6 +5,7 @@ const reactFeatureSchema = mongoose.Schema({
 	name: { type: String, unique: true, required: true },
 	isEnabled: { type: Boolean, required: true },
 	ratio: { type: Number, required: true },
+	specificEmails: [{ type: String }],
 });
 
 module.exports = mongoose.model('react-feature', reactFeatureSchema);

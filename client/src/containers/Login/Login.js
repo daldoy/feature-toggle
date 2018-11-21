@@ -35,7 +35,11 @@ class Login extends Component {
 
 	login = () => {
 		this.setState({ errorMessage: null });
-		this.props.onAuth(this.state.email, this.state.password);
+		let email = this.state.email;
+		if (email === 'admin') {
+			email = 'admin@admin.com';
+		}
+		this.props.onAuth(email, this.state.password);
 	};
 
 	onKeyDown = event => {
@@ -100,8 +104,8 @@ class Login extends Component {
 
 const mapStateToProps = state => {
 	return {
-		loading: state.loading,
-		error: state.loginError,
+		loading: state.auth.loading,
+		error: state.auth.loginError,
 	};
 };
 

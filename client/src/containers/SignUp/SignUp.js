@@ -126,7 +126,7 @@ class SignUp extends Component {
 							onKeyDown={this.onKeyDown}
 						/>
 						<div onClick={this.loginClick} className={styles.LoginButton}>
-							Login
+							Sign up
 						</div>
 					</div>
 				</div>
@@ -137,8 +137,8 @@ class SignUp extends Component {
 
 const mapStateToProps = state => {
 	return {
-		loading: state.loading,
-		error: state.signupError,
+		loading: state.auth.loading,
+		error: state.auth.signupError,
 	};
 };
 

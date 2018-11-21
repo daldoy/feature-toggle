@@ -17,13 +17,20 @@ export class Home extends Component {
 			<React.Fragment>
 				<Header isAdmin={this.props.isAdmin} url={this.props.match.url} />
 				<div className={styles.Content}>
-					{this.props.myFeatures ? (
+					{this.props.myFeatures !== '[]' ? (
 						<React.Fragment>
 							<div>My features:</div>
 							<div>{this.props.myFeatures}</div>
 						</React.Fragment>
 					) : (
-						<div>You don't have any features</div>
+						<p>You don't have any feature enabled</p>
+					)}
+					{!this.props.isAdmin && (
+						<React.Fragment>
+							<div>If you want to create feature toggles, log in with:</div>
+							<p>email: admin</p>
+							<p>pwd: admin</p>
+						</React.Fragment>
 					)}
 				</div>
 			</React.Fragment>
